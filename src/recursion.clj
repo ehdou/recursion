@@ -150,11 +150,19 @@
       a-seq
       (seq-merge (merge-sort (first half)) (merge-sort (second half))))))
 
+(defn monotonic? [a-seq]
+  (or(apply <= a-seq) (apply >= a-seq)))
+
 (defn split-into-monotonics [a-seq]
-  [:-])
+  (if (empty? a-seq)
+    '()
+    (let [monotonic-seq (take-while monotonic? (rest (reverse (inits a-seq))))]
+      (cons (last monotonic-seq) (split-into-monotonics (drop (count monotonic-seq) a-seq))))))
 
 (defn permutations [a-set]
-  [:-])
+  (if (empty? a-set)
+    '()
+    a-set))
 
 (defn powerset [a-set]
   [:-])
